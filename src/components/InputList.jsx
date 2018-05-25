@@ -28,12 +28,13 @@ class InputList extends Component {
     const { items, label, onChange, onClear, onActivate } = this.props;
     return (
       <div>
-        {items.map(({ index, disabled, focused }) => (
+        {items.map(({ index, disabled, focused, value }) => (
           <Input
             key={index}
             label={label}
             disabled={disabled}
             focused={focused}
+            value={value}
             onChange={val => onChange(index, val)}
             onClear={() => onClear(index)}
             onActivate={() => onActivate(index)}

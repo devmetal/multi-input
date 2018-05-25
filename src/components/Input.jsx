@@ -8,6 +8,7 @@ class Input extends Component {
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     focused: PropTypes.bool,
+    value: PropTypes.string,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
     onActivate: PropTypes.func
@@ -18,12 +19,17 @@ class Input extends Component {
     onClear: () => {},
     onActivate: () => {},
     disabled: false,
-    focused: false
+    focused: false,
+    value: '',
   };
 
-  state = {
-    value: ''
-  };
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      value: props.value
+    }
+  }
 
   onChange = e => {
     const {

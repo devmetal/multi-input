@@ -1,35 +1,47 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import InputList from './InputList';
 
 class MultiInput extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    defaultValues: PropTypes.arrayOf(PropTypes.string)
   };
 
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
+    defaultValues: ['']
   };
 
-  state = {
-    items: [
-      {
-        disabled: false,
-        index: 0,
-        value: ''
-      },
-      {
-        disabled: true,
-        index: 1,
-        value: ''
-      }
-    ]
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: this.getDefaultItems()
+    };
+  }
+
+  getDefaultItems = () => {
+    const items = this.props.defaultValues.map((v, i) => ({
+      index: i,
+      value: v,
+      disabled: false
+    }));
+
+    return [...items, { disabled: true, value: '', index: items.length }];
   };
 
-  changed = items => {
+  onSave = () => {
+    const { items } = this.state;
     this.props.onChange(items.filter(i => !i.disabled).map(i => i.value));
   };
+
+  onCancel = () =>
+    this.setState({
+      items: this.getDefaultItems()
+    });
 
   onActivate = ind => {
     const activated = this.state.items.map(item => {
@@ -52,7 +64,6 @@ class MultiInput extends Component {
       }
     ];
 
-    this.changed(items);
     this.setState({ items });
   };
 
@@ -69,13 +80,10 @@ class MultiInput extends Component {
     });
 
     this.setState({ items });
-    this.changed(items);
   };
 
   onClear = ind => {
     const items = this.state.items.filter(item => item.index !== ind);
-
-    this.changed(items);
     this.setState({ items });
   };
 
@@ -84,13 +92,19 @@ class MultiInput extends Component {
     const { label } = this.props;
 
     return (
-      <InputList
-        label={label}
-        items={items}
-        onActivate={this.onActivate}
-        onChange={this.onChange}
-        onClear={this.onClear}
-      />
+      <div>
+        <InputList
+          label={label}
+          items={items}
+          onActivate={this.onActivate}
+          onChange={this.onChange}
+          onClear={this.onClear}
+        />
+        <Button onClick={this.onSave} color="primary">
+          Save
+        </Button>
+        <Button onClick={this.onCancel}>Cancel</Button>
+      </div>
     );
   }
 }

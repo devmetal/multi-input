@@ -18,7 +18,10 @@ storiesOf('Multiple Input', module)
     <Input label="Test Prop" onActivate={action('activate')} disabled />
   ))
   .add('InputList', () => {
-    const items = [{ index: 1, disabled: false, }, { index: 2, disabled: false }];
+    const items = [
+      { index: 1, disabled: false },
+      { index: 2, disabled: false }
+    ];
 
     return (
       <InputList
@@ -31,4 +34,14 @@ storiesOf('Multiple Input', module)
   })
   .add('MultiInput', () => (
     <MultiInput onChange={action('onChange')} label="Test Prop" />
-  ));
+  ))
+  .add('MultiInput With Default Values', () => {
+    const values = ['foo', 'bar'];
+    return (
+      <MultiInput
+        onChange={action('onChange')}
+        label="Test Prop"
+        defaultValues={values}
+      />
+    );
+  });
