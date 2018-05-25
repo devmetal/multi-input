@@ -8,7 +8,7 @@ class InputList extends Component {
     items: PropTypes.arrayOf(
       PropTypes.shape({
         disabled: PropTypes.bool.isRequired,
-        value: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired
       })
     ),
     onChange: PropTypes.func,

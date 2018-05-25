@@ -13,7 +13,7 @@ const InputRow = styled.div`
 
 const PointerIcon = styled(Icon)`
   cursor: pointer;
-`
+`;
 
 class Input extends Component {
   static propTypes = {
