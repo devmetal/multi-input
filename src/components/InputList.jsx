@@ -7,9 +7,8 @@ class InputList extends Component {
     label: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(
       PropTypes.shape({
-        index: PropTypes.number.isRequired,
         disabled: PropTypes.bool.isRequired,
-        focused: PropTypes.bool,
+        value: PropTypes.string.isRequired,
       })
     ),
     onChange: PropTypes.func,
@@ -28,13 +27,12 @@ class InputList extends Component {
     const { items, label, onChange, onClear, onActivate } = this.props;
     return (
       <div>
-        {items.map(({ index, disabled, focused, value }) => (
+        {items.map((item, index) => (
           <Input
             key={index}
             label={label}
-            disabled={disabled}
-            focused={focused}
-            value={value}
+            disabled={item.disabled}
+            value={item.value}
             onChange={val => onChange(index, val)}
             onClear={() => onClear(index)}
             onActivate={() => onActivate(index)}

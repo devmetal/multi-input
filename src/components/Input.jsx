@@ -6,9 +6,8 @@ import Icon from '@material-ui/core/Icon';
 class Input extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
-    focused: PropTypes.bool,
-    value: PropTypes.string,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
     onActivate: PropTypes.func
@@ -19,23 +18,12 @@ class Input extends Component {
     onClear: () => {},
     onActivate: () => {},
     disabled: false,
-    focused: false,
-    value: '',
   };
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      value: props.value
-    }
-  }
 
   onChange = e => {
     const {
       target: { value }
     } = e;
-    this.setState({ value });
     this.props.onChange(value);
   };
 
@@ -49,9 +37,8 @@ class Input extends Component {
     return (
       <div>
         <TextField
-          autoFocus={this.props.focused}
           label={this.props.label}
-          value={this.state.value}
+          value={this.props.value}
           onChange={this.onChange}
           onFocus={this.onFocus}
         />

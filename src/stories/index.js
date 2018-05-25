@@ -41,7 +41,7 @@ storiesOf('Multiple Input', module)
       <MultiInput
         onChange={action('onChange')}
         label="Test Prop"
-        defaultValues={values}
+        values={values}
       />
     );
   });

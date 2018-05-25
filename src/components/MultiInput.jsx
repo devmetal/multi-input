@@ -7,12 +7,12 @@ class MultiInput extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func,
-    defaultValues: PropTypes.arrayOf(PropTypes.string)
+    values: PropTypes.arrayOf(PropTypes.string)
   };
 
   static defaultProps = {
     onChange: () => {},
-    defaultValues: ['']
+    values: ['']
   };
 
   constructor(props) {
@@ -24,13 +24,13 @@ class MultiInput extends Component {
   }
 
   getDefaultItems = () => {
-    const items = this.props.defaultValues.map((v, i) => ({
-      index: i,
-      value: v,
+    const { values } = this.props;
+    const items = values.map(value => ({
+      value,
       disabled: false
     }));
 
-    return [...items, { disabled: true, value: '', index: items.length }];
+    return [...items, { disabled: true, value: '' }];
   };
 
   onSave = () => {
@@ -43,15 +43,15 @@ class MultiInput extends Component {
       items: this.getDefaultItems()
     });
 
-  onActivate = ind => {
-    const activated = this.state.items.map(item => {
-      if (item.index !== ind) {
-        return { ...item, focused: false };
+  onActivate = index => {
+    const activated = this.state.items.map((item, i) => {
+      if (i !== index) {
+        return item
       }
+
       return {
         ...item,
         disabled: false,
-        focused: true
       };
     });
 
@@ -59,7 +59,6 @@ class MultiInput extends Component {
       ...activated,
       {
         disabled: true,
-        index: activated.length,
         value: ''
       }
     ];
@@ -67,9 +66,9 @@ class MultiInput extends Component {
     this.setState({ items });
   };
 
-  onChange = (ind, value) => {
-    const items = this.state.items.map(item => {
-      if (item.index !== ind) {
+  onChange = (index, value) => {
+    const items = this.state.items.map((item, i) => {
+      if (i !== index) {
         return item;
       }
 
@@ -82,8 +81,8 @@ class MultiInput extends Component {
     this.setState({ items });
   };
 
-  onClear = ind => {
-    const items = this.state.items.filter(item => item.index !== ind);
+  onClear = index => {
+    const items = [...this.state.items.splice(index, 1)];
     this.setState({ items });
   };
 
