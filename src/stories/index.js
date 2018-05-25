@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import Input from '../components/Input';
 import InputList from '../components/InputList';
 import MultiInput from '../components/MultiInput';
+import Root from '../components/Root';
 
 storiesOf('Multiple Input', module)
   .add('Input', () => (
@@ -44,4 +45,5 @@ storiesOf('Multiple Input', module)
         values={values}
       />
     );
-  });
+  })
+  .add('Root', () => <Root />);

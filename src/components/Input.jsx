@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
+import styled from 'styled-components';
+
+const InputRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: nowrap;
+`;
+
+const PointerIcon = styled(Icon)`
+  cursor: pointer;
+`
 
 class Input extends Component {
   static propTypes = {
@@ -17,7 +29,7 @@ class Input extends Component {
     onChange: () => {},
     onClear: () => {},
     onActivate: () => {},
-    disabled: false,
+    disabled: false
   };
 
   onChange = e => {
@@ -35,15 +47,18 @@ class Input extends Component {
 
   render() {
     return (
-      <div>
+      <InputRow>
         <TextField
+          fullWidth
           label={this.props.label}
           value={this.props.value}
           onChange={this.onChange}
           onFocus={this.onFocus}
         />
-        {!this.props.disabled && <Icon onClick={this.props.onClear}>clear</Icon>}
-      </div>
+        {!this.props.disabled && (
+          <PointerIcon onClick={this.props.onClear}>clear</PointerIcon>
+        )}
+      </InputRow>
     );
   }
 }

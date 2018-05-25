@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import PropTypes from 'prop-types';
 import InputList from './InputList';
 
@@ -46,12 +49,12 @@ class MultiInput extends Component {
   onActivate = index => {
     const activated = this.state.items.map((item, i) => {
       if (i !== index) {
-        return item
+        return item;
       }
 
       return {
         ...item,
-        disabled: false,
+        disabled: false
       };
     });
 
@@ -82,8 +85,8 @@ class MultiInput extends Component {
   };
 
   onClear = index => {
-    const items = [...this.state.items.splice(index, 1)];
-    this.setState({ items });
+    this.state.items.splice(index, 1);
+    this.setState({ items: [...this.state.items] });
   };
 
   render() {
@@ -91,19 +94,23 @@ class MultiInput extends Component {
     const { label } = this.props;
 
     return (
-      <div>
-        <InputList
-          label={label}
-          items={items}
-          onActivate={this.onActivate}
-          onChange={this.onChange}
-          onClear={this.onClear}
-        />
-        <Button onClick={this.onSave} color="primary">
-          Save
-        </Button>
-        <Button onClick={this.onCancel}>Cancel</Button>
-      </div>
+      <Card>
+        <CardContent>
+          <InputList
+            label={label}
+            items={items}
+            onActivate={this.onActivate}
+            onChange={this.onChange}
+            onClear={this.onClear}
+          />
+        </CardContent>
+        <CardActions>
+          <Button onClick={this.onSave} color="primary">
+            Save
+          </Button>
+          <Button onClick={this.onCancel}>Cancel</Button>
+        </CardActions>
+      </Card>
     );
   }
 }
