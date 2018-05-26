@@ -36,13 +36,12 @@ class Input extends Component {
     const {
       target: { value }
     } = e;
-    this.props.onChange(value);
-  };
 
-  onFocus = () => {
-    if (this.props.disabled === true) {
-      this.props.onActivate();
+    if (this.props.disabled) {
+      return this.props.onActivate(value);
     }
+
+    this.props.onChange(value);
   };
 
   render() {
@@ -53,7 +52,6 @@ class Input extends Component {
           label={this.props.label}
           value={this.props.value}
           onChange={this.onChange}
-          onFocus={this.onFocus}
         />
         {!this.props.disabled && (
           <PointerIcon onClick={this.props.onClear}>clear</PointerIcon>

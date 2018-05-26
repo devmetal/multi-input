@@ -35,7 +35,7 @@ class InputList extends Component {
             value={item.value}
             onChange={val => onChange(index, val)}
             onClear={() => onClear(index)}
-            onActivate={() => onActivate(index)}
+            onActivate={val => onActivate(index, val)}
           />
         ))}
       </div>

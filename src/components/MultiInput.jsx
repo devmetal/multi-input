@@ -46,7 +46,7 @@ class MultiInput extends Component {
       items: this.getDefaultItems()
     });
 
-  onActivate = index => {
+  onActivate = (index, value) => {
     const activated = this.state.items.map((item, i) => {
       if (i !== index) {
         return item;
@@ -54,6 +54,7 @@ class MultiInput extends Component {
 
       return {
         ...item,
+        value,
         disabled: false
       };
     });
